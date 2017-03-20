@@ -2,7 +2,7 @@
 environments:
   pensionsdags1:
     environment_variables:
-      PAYCHECK1: 40000
+      PAYCHECK1: 35000
     pipelines:
       - pac-lon1
 pipelines:
@@ -20,9 +20,7 @@ pipelines:
             defaultJob: # name of the job
               tasks:
                - exec: # indicates type of task
-                   command: echo
-                     arguments:
-                       Hello
+                   command: date
 
 
 ## Just testing the example configuration file from
