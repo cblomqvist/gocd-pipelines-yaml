@@ -4,18 +4,17 @@ environments:
     environment_variables:
       PAYCHECK1: 19000
 pipelines:
-  pac1_lon:
+  pac1_socarb:
     group: pac1_workshop
     materials:
-      src:  # this is the name of material
-        # says about type of material and url at once
-        git: https://github.com/pm-gocd/lon.git
+      src:  # Name of material
+        git: https://github.com/pm-gocd/socarb.git
         branch: master
         auto_update: false
     stages:
-      - defaultStage: # name of stage
+      - defaultStage: # Name of stage
           jobs:
-            defaultJob: # name of the job
+            defaultJob: # Name of the job
               tasks:
               - exec:
                   command: "/bin/bash"
@@ -23,18 +22,17 @@ pipelines:
                   - -x
                   - ./calc.sh
 
-  pac1_socarb:
+  pac1_lon:
     group: pac1_workshop
     materials:
-      src:  # this is the name of material
-        # says about type of material and url at once
-        git: https://github.com/pm-gocd/socarb.git
+      src:  # Name of material
+        git: https://github.com/pm-gocd/lon.git
         branch: master
         auto_update: false
     stages:
-      - defaultStage: # name of stage
+      - defaultStage: # Name of stage
           jobs:
-            defaultJob: # name of the job
+            defaultJob: # Name of the job
               tasks:
               - exec:
                   command: "/bin/bash"
@@ -45,15 +43,45 @@ pipelines:
   pac1_privatpension:
     group: pac1_workshop
     materials:
-      src:  # this is the name of material
-        # says about type of material and url at once
+      src:  # Name of material
         git: https://github.com/pm-gocd/privatpension.git
         branch: master
         auto_update: false
-    stages:
-      - defaultStage: # name of stage
+      pac1_lon:
+        pipeline: pac1_lon
+        stage: defaultStage
+      stages:
+      - defaultStage: # Name of stage
           jobs:
-            defaultJob: # name of the job
+            defaultJob: # Name of the job
+              tasks:
+              - fetch:
+                  pipeline: pac1_lon
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - exec:
+                  command: "/bin/bash"
+                  arguments:
+                  - -x
+                  - ./calc.sh
+
+  pac1_tjanstepension:
+    group: pac1_workshop
+    materials:
+      src: # Name of material
+        git: https://github.com/pm-gocd/tjanstepension.git
+        branch: master
+        auto_update: false
+      pac1_lon:
+        pipeline: pac1_lon
+        stage: defaultStage
+      stages:
+      - defaultStage: # Name of stage
+          jobs:
+            defaultJob: # Name of the job
               tasks:
               - fetch:
                   pipeline: pac1_lon
