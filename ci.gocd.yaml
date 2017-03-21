@@ -19,8 +19,8 @@ pipelines:
               tasks:
                 command: "/bin/bash"
                 arguments:
-                  -x
-                  ./calc.sh
+                  - -x
+                  - ./calc.sh
 
 ## Just testing the example configuration file from
 ## https://github.com/tomzo/gocd-yaml-config-example/blob/master/ci.gocd.yaml
