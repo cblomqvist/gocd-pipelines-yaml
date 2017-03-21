@@ -267,3 +267,135 @@ pipelines:
                   arguments:
                   - -x
                   - ./calc.sh
+
+  pac1_inkomstpension:
+    group: pac1_workshop
+    label_template: "ip(${src[:6]})-${pac1_pensionsratter}"
+    materials:
+      src:  # Name of material
+        git: https://github.com/pm-gocd/inkomstpension.git
+        branch: master
+        auto_update: false
+      pac1_pensionsratter:
+        type: dependency
+        pipeline: pac1_pensionsratter
+        stage: defaultStage
+    stages:
+      - defaultStage: # Name of stage
+          jobs:
+            defaultJob: # Name of the job
+              artifacts:
+               - build:
+                   source: output
+              tasks:
+              - fetch:
+                  pipeline: pac1_pensionsratter
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - exec:
+                  command: "/bin/bash"
+                  arguments:
+                  - -x
+                  - ./calc.sh
+
+  pac1_premiepension:
+    group: pac1_workshop
+    label_template: "pp(${src[:6]})-${pac1_pensionsratter}"
+    materials:
+      src:  # Name of material
+        git: https://github.com/pm-gocd/premiepension.git
+        branch: master
+        auto_update: false
+      pac1_pensionsratter:
+        type: dependency
+        pipeline: pac1_pensionsratter
+        stage: defaultStage
+    stages:
+      - defaultStage: # Name of stage
+          jobs:
+            defaultJob: # Name of the job
+              artifacts:
+               - build:
+                   source: output
+              tasks:
+              - fetch:
+                  pipeline: pac1_pensionsratter
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - exec:
+                  command: "/bin/bash"
+                  arguments:
+                  - -x
+                  - ./calc.sh
+
+  pac1_dinpension:
+    group: pac1_workshop
+    label_template: "pp(${src[:6]})-${pac1_inkomstpension}-${pac1_premiepension}-${pac1_tjanstepension}-${pac1_privatpension}"
+    materials:
+      src:  # Name of material
+        git: https://github.com/pm-gocd/dinpension.git
+        branch: master
+        auto_update: false
+      pac1_inkomstpension:
+        type: dependency
+        pipeline: pac1_inkomstpension
+        stage: defaultStage
+      pac1_premiepension:
+        type: dependency
+        pipeline: pac1_premiepension
+        stage: defaultStage
+      pac1_tjanstepension:
+        type: dependency
+        pipeline: pac1_tjanstepension
+        stage: defaultStage
+      pac1_privatpension:
+        type: dependency
+        pipeline: pac1_privatpension
+        stage: defaultStage
+    stages:
+      - defaultStage: # Name of stage
+          jobs:
+            defaultJob: # Name of the job
+              artifacts:
+               - build:
+                   source: output
+              tasks:
+              - fetch:
+                  pipeline: pac1_inkomstpension
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - fetch:
+                  pipeline: pac1_premiepension
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - fetch:
+                  pipeline: pac1_tjanstepension
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - fetch:
+                  pipeline: pac1_privatpension
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - exec:
+                  command: "/bin/bash"
+                  arguments:
+                  - -x
+                  - ./calc.sh
