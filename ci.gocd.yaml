@@ -70,8 +70,8 @@ pipelines:
                   stage: defaultStage
                   job: defaultJob
                   is_file: no
-                  source: output/
-                  destination: upstream/
+                  source: output
+                  destination: upstream
               - exec:
                   command: "/bin/bash"
                   arguments:
