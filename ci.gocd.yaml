@@ -212,3 +212,58 @@ pipelines:
                   arguments:
                   - -x
                   - ./calc.sh
+
+  pac1_pensionsratter:
+    group: pac1_workshop
+    label_template: "pr(${src[:6]})-${pac1_alderspensionsavgift}-${pac1_allmanpensionsavgift}-${pac1_arbetsgivaravgift-egenavgift}"
+    materials:
+      src:  # Name of material
+        git: https://github.com/pm-gocd/pensionsratter.git
+        branch: master
+        auto_update: false
+      pac1_alderspensionsavgift:
+        type: dependency
+        pipeline: pac1_alderspensionsavgift
+        stage: defaultStage
+      pac1_allmanpensionsavgift:
+        type: dependency
+        pipeline: pac1_allmanpensionsavgift
+        stage: defaultStage
+      pac1_arbetsgivaravgift-egenavgift:
+        type: dependency
+        pipeline: pac1_arbetsgivaravgift-egenavgift
+        stage: defaultStage
+    stages:
+      - defaultStage: # Name of stage
+          jobs:
+            defaultJob: # Name of the job
+              artifacts:
+               - build:
+                   source: output
+              tasks:
+              - fetch:
+                  pipeline: pac1_alderspensionsavgift
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - fetch:
+                  pipeline: pac1_allmanpensionsavgift
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - fetch:
+                  pipeline: pac1_arbetsgivaravgift-egenavgift
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - exec:
+                  command: "/bin/bash"
+                  arguments:
+                  - -x
+                  - ./calc.sh
