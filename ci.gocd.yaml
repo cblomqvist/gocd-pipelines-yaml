@@ -65,13 +65,13 @@ pipelines:
                - build:
                    source: output
               tasks:
-              - fetch:
-                  pipeline: pac1_lon
-                  stage: defaultStage
-                  job: defaultJob
-                  is_file: no
-                  source: output
-                  destination: upstream
+#              - fetch:
+#                  pipeline: pac1_lon
+#                  stage: defaultStage
+#                  job: defaultJob
+#                  is_file: no
+#                  source: output
+#                  destination: upstream
               - exec:
                   command: "/bin/bash"
                   arguments:
