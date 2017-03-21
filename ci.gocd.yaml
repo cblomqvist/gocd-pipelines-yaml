@@ -41,3 +41,29 @@ pipelines:
                   arguments:
                   - -x
                   - ./calc.sh
+
+  pac1_privatpension:
+    group: pac1_workshop
+    materials:
+      src:  # this is the name of material
+        # says about type of material and url at once
+        git: https://github.com/pm-gocd/privatpension.git
+        branch: master
+        auto_update: false
+    stages:
+      - defaultStage: # name of stage
+          jobs:
+            defaultJob: # name of the job
+              tasks:
+              - fetch:
+                  pipeline: pac1_lon
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - exec:
+                  command: "/bin/bash"
+                  arguments:
+                  - -x
+                  - ./calc.sh
