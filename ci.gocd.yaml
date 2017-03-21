@@ -6,6 +6,7 @@ environments:
 pipelines:
   pac1_socarb:
     group: pac1_workshop
+    label_template: "socarb(${src[:6]})"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/socarb.git
@@ -27,6 +28,7 @@ pipelines:
 
   pac1_lon:
     group: pac1_workshop
+    label_template: "lon(${src[:6]})"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/lon.git
@@ -48,6 +50,7 @@ pipelines:
 
   pac1_privatpension:
     group: pac1_workshop
+    label_template: "pp(${src[:6]})-${pac1_lon}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/privatpension.git
@@ -80,6 +83,7 @@ pipelines:
 
   pac1_tjanstepension:
     group: pac1_workshop
+    label_template: "tp(${src[:6]})-${pac1_lon}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/tjanstepension.git
