@@ -53,11 +53,7 @@ pipelines:
         git: https://github.com/pm-gocd/privatpension.git
         branch: master
         auto_update: false
-#      pac1_lon:
-#        type: dependency
-#        pipeline: pac1_lon
-#        stage: defaultStage
-      stages:
+    stages:
       - defaultStage: # Name of stage
           jobs:
             defaultJob: # Name of the job
@@ -65,17 +61,42 @@ pipelines:
                - build:
                    source: output
               tasks:
-#              - fetch:
-#                  pipeline: pac1_lon
-#                  stage: defaultStage
-#                  job: defaultJob
-#                  is_file: no
-#                  source: output
-#                  destination: upstream
               - exec:
                   command: "/bin/bash"
                   arguments:
                   - -x
                   - ./calc.sh
+
+#  pac1_privatpension:
+#    group: pac1_workshop
+#    materials:
+#      src:  # Name of material
+#        git: https://github.com/pm-gocd/privatpension.git
+#        branch: master
+#        auto_update: false
+##      pac1_lon:
+##        type: dependency
+##        pipeline: pac1_lon
+##        stage: defaultStage
+#      stages:
+#      - defaultStage: # Name of stage
+#          jobs:
+#            defaultJob: # Name of the job
+#              artifacts:
+#               - build:
+#                   source: output
+#              tasks:
+##              - fetch:
+##                  pipeline: pac1_lon
+##                  stage: defaultStage
+##                  job: defaultJob
+##                  is_file: no
+##                  source: output
+##                  destination: upstream
+#              - exec:
+#                  command: "/bin/bash"
+#                  arguments:
+#                  - -x
+#                  - ./calc.sh
 
 #  pac1_tjanstepension:
