@@ -122,7 +122,7 @@ pipelines:
         git: https://github.com/pm-gocd/alderspensionsavgift.git
         branch: master
         auto_update: false
-      pac1_lon:
+      pac1_socarb:
         type: dependency
         pipeline: pac1_socarb
         stage: defaultStage
@@ -182,7 +182,7 @@ pipelines:
 
 #  pac1_arbetsgivaravgift-egenavgift:
 #    group: pac1_workshop
-#    label_template: "almpa(${src[:6]})-${pac1_lon}"
+#    label_template: "arba(${src[:6]})-${pac1_lon}"
 #    materials:
 #      src:  # Name of material
 #        git: https://github.com/pm-gocd/arbetsgivaravgift-egenavgift.git
