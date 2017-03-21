@@ -114,3 +114,102 @@ pipelines:
                   - -x
                   - ./calc.sh
 
+  pac1_alderspensionsavgift:
+    group: pac1_workshop
+    label_template: "aldpa(${src[:6]})-${pac1_socarb}"
+    materials:
+      src:  # Name of material
+        git: https://github.com/pm-gocd/alderspensionsavgift.git
+        branch: master
+        auto_update: false
+      pac1_lon:
+        type: dependency
+        pipeline: pac1_socarb
+        stage: defaultStage
+    stages:
+      - defaultStage: # Name of stage
+          jobs:
+            defaultJob: # Name of the job
+              artifacts:
+               - build:
+                   source: output
+              tasks:
+              - fetch:
+                  pipeline: pac1_socarb
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - exec:
+                  command: "/bin/bash"
+                  arguments:
+                  - -x
+                  - ./calc.sh
+
+  pac1_allmanpensionsavgift:
+    group: pac1_workshop
+    label_template: "almpa(${src[:6]})-${pac1_lon}"
+    materials:
+      src:  # Name of material
+        git: https://github.com/pm-gocd/allmanpensionsavgift.git
+        branch: master
+        auto_update: false
+      pac1_lon:
+        type: dependency
+        pipeline: pac1_lon
+        stage: defaultStage
+    stages:
+      - defaultStage: # Name of stage
+          jobs:
+            defaultJob: # Name of the job
+              artifacts:
+               - build:
+                   source: output
+              tasks:
+              - fetch:
+                  pipeline: pac1_lon
+                  stage: defaultStage
+                  job: defaultJob
+                  is_file: no
+                  source: output
+                  destination: upstream
+              - exec:
+                  command: "/bin/bash"
+                  arguments:
+                  - -x
+                  - ./calc.sh
+
+#  pac1_arbetsgivaravgift-egenavgift:
+#    group: pac1_workshop
+#    label_template: "almpa(${src[:6]})-${pac1_lon}"
+#    materials:
+#      src:  # Name of material
+#        git: https://github.com/pm-gocd/arbetsgivaravgift-egenavgift.git
+#        branch: master
+#        auto_update: false
+#      pac1_lon:
+#        type: dependency
+#        pipeline: pac1_lon
+#        stage: defaultStage
+#    stages:
+#      - defaultStage: # Name of stage
+#          jobs:
+#            defaultJob: # Name of the job
+#              artifacts:
+#               - build:
+#                   source: output
+#              tasks:
+#              - fetch:
+#                  pipeline: pac1_lon
+#                  stage: defaultStage
+#                  job: defaultJob
+#                  is_file: no
+#                  source: output
+#                  destination: upstream
+#              - exec:
+#                  command: "/bin/bash"
+#                  arguments:
+#                  - -x
+#                  - ./calc.sh
+
