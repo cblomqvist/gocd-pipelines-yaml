@@ -53,6 +53,10 @@ pipelines:
         git: https://github.com/pm-gocd/privatpension.git
         branch: master
         auto_update: false
+      pac1_lon:
+        type: dependency
+        pipeline: pac1_lon
+        stage: defaultStage
     stages:
       - defaultStage: # Name of stage
           jobs:
