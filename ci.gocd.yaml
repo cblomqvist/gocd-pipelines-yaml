@@ -14,6 +14,9 @@ pipelines:
     stages:
       - defaultStage: # Name of stage
           jobs:
+            artifacts:
+             - build:
+                 source: output
             defaultJob: # Name of the job
               tasks:
               - exec:
@@ -32,6 +35,9 @@ pipelines:
     stages:
       - defaultStage: # Name of stage
           jobs:
+            artifacts:
+             - build:
+                 source: output
             defaultJob: # Name of the job
               tasks:
               - exec:
@@ -47,12 +53,16 @@ pipelines:
         git: https://github.com/pm-gocd/privatpension.git
         branch: master
         auto_update: false
-      upstream:
+      pac1_lon:
+        type: dependency
         pipeline: pac1_lon
         stage: defaultStage
       stages:
       - defaultStage: # Name of stage
           jobs:
+            artifacts:
+             - build:
+                 source: output
             defaultJob: # Name of the job
               tasks:
               - fetch:
