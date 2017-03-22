@@ -50,7 +50,7 @@ pipelines:
 
   pac1_privatpension:
     group: pac1_workshop
-    label_template: "priv-${COUNT}-${pac1_lon}"
+    label_template: "priv-${COUNT}-${pac1_lon}-${src[:4]}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/privatpension.git
@@ -83,7 +83,7 @@ pipelines:
 
   pac1_tjanstepension:
     group: pac1_workshop
-    label_template: "tjanst-${COUNT}-${pac1_lon}"
+    label_template: "tjanst-${COUNT}-${pac1_lon}-${src[:4]}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/tjanstepension.git
@@ -116,7 +116,7 @@ pipelines:
 
   pac1_alderspensionsavgift:
     group: pac1_workshop
-    label_template: "alder-${COUNT}-${pac1_socarb}"
+    label_template: "alder-${COUNT}-${pac1_socarb}-${src[:4]}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/alderspensionsavgift.git
@@ -149,7 +149,7 @@ pipelines:
 
   pac1_allmanpensionsavgift:
     group: pac1_workshop
-    label_template: "allmavg-${COUNT}-${pac1_lon}"
+    label_template: "allmavg-${COUNT}-${pac1_lon}-${src[:4]}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/allmanpensionsavgift.git
@@ -182,7 +182,7 @@ pipelines:
 
   pac1_arbetsgivaravgift-egenavgift:
     group: pac1_workshop
-    label_template: "arbavg-eavg-${COUNT}-${pac1_lon}"
+    label_template: "arbavg-eavg-${COUNT}-${pac1_lon}-${src[:4]}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/arbetsgivaravgift-egenavgift.git
@@ -215,7 +215,7 @@ pipelines:
 
   pac1_pensionsratter:
     group: pac1_workshop
-    label_template: "pratter-${COUNT}-${pac1_lon}-${pac1_socarb}"
+    label_template: "pratter-${COUNT}-${src[:4]}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/pensionsratter.git
@@ -270,7 +270,7 @@ pipelines:
 
   pac1_inkomstpension:
     group: pac1_workshop
-    label_template: "inkpens-${COUNT}-${pac1_lon}-${pac1_socarb}"
+    label_template: "inkpens-${COUNT}-${src[:4]}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/inkomstpension.git
@@ -303,7 +303,7 @@ pipelines:
 
   pac1_premiepension:
     group: pac1_workshop
-    label_template: "prempens-${COUNT}-${pac1_lon}-${pac1_socarb}"
+    label_template: "prempens-${COUNT}-${src[:4]}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/premiepension.git
@@ -336,7 +336,7 @@ pipelines:
 
   pac1_dinpension:
     group: pac1_workshop
-    label_template: "dinpension-${COUNT}-${pac1_lon}-${pac1_socarb}"
+    label_template: "dinpension-${COUNT}-${src[:4]}"
     materials:
       src:  # Name of material
         git: https://github.com/pm-gocd/dinpension.git
