@@ -363,8 +363,10 @@ pipelines:
           jobs:
             defaultJob: # Name of the job
               artifacts:
-               - build:
-                   source: output
+              - build:
+                  source: output
+              tabs:
+                  DinPension: output/dinpension.html
               tasks:
               - fetch:
                   pipeline: pac1_inkomstpension
